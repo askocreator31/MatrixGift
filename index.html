@@ -1,67 +1,235 @@
-<!DOCTYPE html>
-<html lang="en">
+const message = `Diora ❤️
+
+Bilasanmi...
+
+Menga sendagi juda ko'p narsalar yoqadi.
+Qaysarliging, kulishing,
+ba'zida jahling chiqishi ham.
+Shunaqa bo'lsang ham,
+aynan shundayliging uchun yoqasan.
+
+Meni tezroq sizlab gapirishni o'rgan, zaxar. 😄
+
+Har safar yozishingni kutaman.
+Sening bitta xabaring ham
+kayfiyatimni ko'tarishga yetadi.
+
+O'zingni ehtiyot qil.
+
+Va bitta narsani unutma...
+
+Men seni juda yaxshi ko'raman. ❤️
+
+Sen bilan tanishganimdan
+juda xursandman. ❤️
+
+— Asad`;
+
+let i = 0;
+const text = document.getElementById("text");
+
+text.style.whiteSpace = "pre-line";
+
+function typeWriter(){
+    if(i < message.length){
+        text.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 55);
+    }
+}
+
+typeWriter();<!DOCTYPE html>
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Diora ❤️</title>
+
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    background:black;
-    overflow:hidden;
+overflow:hidden;
+background:#000;
+font-family:Consolas,monospace;
 }
+
 canvas{
-    display:block;
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
 }
+
 #text{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    color:#00ff00;
-    font-size:50px;
-    font-family:monospace;
-    text-shadow:0 0 20px #00ff00;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:#00ff88;
+text-align:center;
+font-size:24px;
+line-height:1.8;
+width:90%;
+text-shadow:0 0 10px #00ff88,
+0 0 20px #00ff88,
+0 0 35px #00ff88;
+white-space:pre-line;
+}
+
+.heart{
+position:fixed;
+color:#00ff88;
+font-size:24px;
+animation:float 4s linear forwards;
+pointer-events:none;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-250px);
+opacity:0;
+}
 }
 </style>
+
 </head>
+
 <body>
-<canvas id="c"></canvas>
-<div id="text">❤️ DIORA ❤️</div>
+
+<canvas id="matrix"></canvas>
+
+<div id="text"></div>
 
 <script>
-const canvas=document.getElementById("c");
+
+const canvas=document.getElementById("matrix");
 const ctx=canvas.getContext("2d");
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-const letters="01DIORA";
-const fontSize=16;
-const columns=canvas.width/fontSize;
+const letters="01DIORAASAD❤";
+const size=18;
+const columns=Math.floor(canvas.width/size);
+
 const drops=[];
 
-for(let i=0;i<columns;i++) drops[i]=1;
+for(let i=0;i<columns;i++){
+drops[i]=1;
+}
 
 function draw(){
+
 ctx.fillStyle="rgba(0,0,0,0.05)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 ctx.fillStyle="#00ff00";
-ctx.font=fontSize+"px monospace";
+ctx.font=size+"px monospace";
 
 for(let i=0;i<drops.length;i++){
-const text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+let txt=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(txt,i*size,drops[i]*size);
+
+if(drops[i]*size>canvas.height && Math.random()>0.975){
 drops[i]=0;
+}
 
 drops[i]++;
-}
+
 }
 
-setInterval(draw,33);
-</script>
-</body>
-</html>
+}
+
+setInterval(draw,35);const message=`Diora ❤️
+
+Bilasanmi...
+
+Menga sendagi juda ko'p narsalar yoqadi.
+
+Qaysarliging,
+kulishing,
+ba'zida jahling chiqishi ham.
+
+Shunaqa bo'lsang ham,
+aynan shundayliging uchun yoqasan.
+
+Meni tezroq sizlab gapirishni o'rgan, zaxar. 😄
+
+Har safar yozishingni kutaman.
+Sening bitta xabaring ham
+kayfiyatimni ko'tarishga yetadi.
+
+O'zingni ehtiyot qil.
+
+Va bitta narsani unutma...
+
+Men seni juda yaxshi ko'raman. ❤️
+
+Sen bilan tanishganimdan
+juda xursandman. ❤️
+
+— Asad`;
+
+const box=document.getElementById("text");
+
+let i=0;
+
+function startTyping(){
+
+function type(){
+
+if(i<message.length){
+
+box.innerHTML+=message.charAt(i);
+
+i++;
+
+setTimeout(type,55);
+
+}else{
+
+setInterval(createHeart,350);
+
+}
+
+}
+
+type();
+
+}
+
+setTimeout(startTyping,5000);
+
+function createHeart(){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤";
+
+h.style.left=Math.random()*window.innerWidth+"px";
+
+h.style.top=(window.innerHeight-30)+"px";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{
+
+h.remove();
+
+},4000);
+
+}
