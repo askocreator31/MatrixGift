@@ -1,107 +1,53 @@
-const message = `Diora ❤️
-
-Bilasanmi...
-
-Menga sendagi juda ko'p narsalar yoqadi.
-Qaysarliging, kulishing,
-ba'zida jahling chiqishi ham.
-Shunaqa bo'lsang ham,
-aynan shundayliging uchun yoqasan.
-
-Meni tezroq sizlab gapirishni o'rgan, zaxar. 😄
-
-Har safar yozishingni kutaman.
-Sening bitta xabaring ham
-kayfiyatimni ko'tarishga yetadi.
-
-O'zingni ehtiyot qil.
-
-Va bitta narsani unutma...
-
-Men seni juda yaxshi ko'raman. ❤️
-
-Sen bilan tanishganimdan
-juda xursandman. ❤️
-
-— Asad`;
-
-let i = 0;
-const text = document.getElementById("text");
-
-text.style.whiteSpace = "pre-line";
-
-function typeWriter(){
-    if(i < message.length){
-        text.innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeWriter, 55);
-    }
-}
-
-typeWriter();<!DOCTYPE html>
-<html lang="uz">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Diora ❤️</title>
+
+<title>Diora ❤️</title>
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
 }
 
 body{
-overflow:hidden;
-background:#000;
-font-family:Consolas,monospace;
+ background:black;
+ overflow:hidden;
+ font-family:monospace;
 }
 
 canvas{
-position:fixed;
-left:0;
-top:0;
-width:100%;
-height:100%;
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:0;
 }
 
 #text{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-color:#00ff88;
-text-align:center;
-font-size:24px;
-line-height:1.8;
-width:90%;
-text-shadow:0 0 10px #00ff88,
-0 0 20px #00ff88,
-0 0 35px #00ff88;
-white-space:pre-line;
+ position:absolute;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ width:85%;
+ color:white;
+ font-size:18px;
+ line-height:1.6;
+ white-space:pre-line;
+ z-index:2;
+ text-shadow:0 0 10px #00ff00;
 }
 
-.heart{
-position:fixed;
-color:#00ff88;
-font-size:24px;
-animation:float 4s linear forwards;
-pointer-events:none;
+.cursor{
+ animation:blink .7s infinite;
 }
 
-@keyframes float{
-0%{
-transform:translateY(0);
-opacity:1;
-}
-100%{
-transform:translateY(-250px);
-opacity:0;
-}
+@keyframes blink{
+ 50%{opacity:0;}
 }
 </style>
-
 </head>
 
 <body>
@@ -109,6 +55,7 @@ opacity:0;
 <canvas id="matrix"></canvas>
 
 <div id="text"></div>
+
 
 <script>
 
@@ -118,58 +65,59 @@ const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-const letters="01DIORAASAD❤";
+const letters="01DIORA❤️";
 const size=18;
-const columns=Math.floor(canvas.width/size);
 
-const drops=[];
+let columns=Math.floor(canvas.width/size);
+let drops=[];
 
 for(let i=0;i<columns;i++){
-drops[i]=1;
+ drops[i]=1;
 }
 
-function draw(){
 
-ctx.fillStyle="rgba(0,0,0,0.05)";
+function matrix(){
+
+ctx.fillStyle="rgba(0,0,0,0.08)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 ctx.fillStyle="#00ff00";
 ctx.font=size+"px monospace";
 
+
 for(let i=0;i<drops.length;i++){
 
-let txt=letters[Math.floor(Math.random()*letters.length)];
+let text=letters[Math.floor(Math.random()*letters.length)];
 
-ctx.fillText(txt,i*size,drops[i]*size);
+ctx.fillText(text,i*size,drops[i]*size);
 
-if(drops[i]*size>canvas.height && Math.random()>0.975){
-drops[i]=0;
+if(drops[i]*size>canvas.height && Math.random()>0.97){
+ drops[i]=0;
 }
 
 drops[i]++;
-
 }
 
 }
 
-setInterval(draw,35);const message=`Diora ❤️
+setInterval(matrix,50);
+
+
+
+const message=`Diora ❤️
 
 Bilasanmi...
 
-Menga sendagi juda ko'p narsalar yoqadi.
+Senda menga juda ko'p narsalar yoqadi.
 
-Qaysarliging,
-kulishing,
-ba'zida jahling chiqishi ham.
+Sening kulishing,
+gaplashishing,
+oddiygina borliging ham.
 
-Shunaqa bo'lsang ham,
-aynan shundayliging uchun yoqasan.
-
-Meni tezroq sizlab gapirishni o'rgan, zaxarm. 😄
+Ba'zida uzoqda bo'lsang ham,
+seni eslab qolaman.
 
 Har safar yozishingni kutaman.
-Sening bitta xabaring ham
-kayfiyatimni ko'tarishga yetadi.
 
 O'zingni ehtiyot qil.
 
@@ -178,58 +126,56 @@ Va bitta narsani unutma...
 Men seni juda yaxshi ko'raman. ❤️
 
 Sen bilan tanishganimdan
-juda xursandman. ❤️
+juda xursandman.
 
 — Asad`;
 
+
+
 const box=document.getElementById("text");
 
-let i=0;
+let index=0;
 
-function startTyping(){
 
-function type(){
+function typing(){
 
-if(i<message.length){
+if(index < message.length){
 
-box.innerHTML+=message.charAt(i);
+box.innerHTML += message[index];
 
-i++;
+index++;
 
-setTimeout(type,55);
+setTimeout(typing,60);
 
-}else{
+}
 
-setInterval(createHeart,350);
+else{
+
+box.innerHTML += '<span class="cursor">|</span>';
 
 }
 
 }
 
-type();
+
+typing();
+
+
+window.onresize=()=>{
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+columns=Math.floor(canvas.width/size);
+drops=[];
+
+for(let i=0;i<columns;i++){
+ drops[i]=1;
+}
 
 }
 
-setTimeout(startTyping,5000);
+</script>
 
-function createHeart(){
-
-const h=document.createElement("div");
-
-h.className="heart";
-
-h.innerHTML="❤";
-
-h.style.left=Math.random()*window.innerWidth+"px";
-
-h.style.top=(window.innerHeight-30)+"px";
-
-document.body.appendChild(h);
-
-setTimeout(()=>{
-
-h.remove();
-
-},4000);
-
-}
+</body>
+</html>
