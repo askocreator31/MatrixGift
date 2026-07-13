@@ -1,4 +1,78 @@
 <!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Диёш🫶</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;background:#000;font-family:Arial}
+canvas{position:fixed;inset:0}
+.name{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:55px;
+font-weight:bold;
+color:#fff;
+text-shadow:0 0 10px #0f0,0 0 20px #0f0,0 0 40px #0f0;
+animation:spin 6s linear infinite;
+transform-style:preserve-3d;
+}
+@keyframes spin{
+0%{transform:translate(-50%,-50%) rotateY(0)}
+100%{transform:translate(-50%,-50%) rotateY(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="name">Диёш🫶</div>
+
+<script>
+const c=document.getElementById("c");
+const x=c.getContext("2d");
+
+function resize(){
+c.width=innerWidth;
+c.height=innerHeight;
+}
+resize();
+onresize=resize;
+
+const txt="01ДИЁШ";
+const size=18;
+let cols=Math.floor(innerWidth/size);
+let drops=Array(cols).fill(1);
+
+setInterval(()=>{
+x.fillStyle="rgba(0,0,0,.08)";
+x.fillRect(0,0,c.width,c.height);
+x.fillStyle="#0f0";
+x.font=size+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let t=txt[Math.floor(Math.random()*txt.length)];
+x.fillText(t,i*size,drops[i]*size);
+if(drops[i]*size>c.height&&Math.random()>0.975)drops[i]=0;
+drops[i]++;
+}
+},40);
+</script>
+<audio id="bg" loop>
+  <source src="matrix.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.body.addEventListener("click",()=>{
+  document.getElementById("bg").play();
+},{once:true});
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -114,8 +188,8 @@ Sening kulishing,
 gaplashishing,
 oddiygina borliging ham.
 
-Ba'zida endi tanishgan boʻlsak ham,
-seni sogʻinb qolaman
+Ba'zida uzoqda bo'lsang ham,
+seni eslab qolaman.
 
 Har safar yozishingni kutaman.
 
@@ -123,7 +197,7 @@ O'zingni ehtiyot qil.
 
 Va bitta narsani unutma...
 
-Seni xaraktering goʻzal va noyob. 😅
+Men seni juda yaxshi ko'raman. ❤️
 
 Sen bilan tanishganimdan
 juda xursandman.
@@ -177,5 +251,7 @@ for(let i=0;i<columns;i++){
 
 </script>
 
+</body>
+</html
 </body>
 </html>
