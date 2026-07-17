@@ -6,361 +6,848 @@
 <title>Mitti malikam uchun ❤️</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body {
-  height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(135deg, #ffd6e5, #ffb5ce, #ffe3ed);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
+body{
+  overflow:hidden;
+  background:#ffc5d9;
+  font-family:Georgia,serif;
 }
 
-/* Yurakchalar */
-.heart {
-  position: absolute;
-  bottom: -50px;
-  color: #d94f7a;
-  animation: fly 7s linear infinite;
-  z-index: 1;
+#scene{
+  width:100vw;
+  height:100vh;
 }
 
-@keyframes fly {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-115vh) rotate(360deg);
-    opacity: 0;
-  }
+.message{
+  position:absolute;
+  bottom:8%;
+  width:100%;
+  text-align:center;
+  color:#a52d58;
+  font-size:clamp(28px,8vw,60px);
+  font-weight:bold;
+  text-shadow:0 3px 10px white;
+  opacity:0;
+  transform:translateY(40px);
+  transition:2s;
+  z-index:10;
 }
 
-/* Asosiy sahna */
-.scene {
-  text-align: center;
-  position: relative;
-  z-index: 5;
-  animation: sceneIn 2s ease;
+.message.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
-@keyframes sceneIn {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Quti */
-.gift {
-  position: relative;
-  width: 230px;
-  height: 150px;
-  margin: 0 auto;
-  animation: floating 3s ease-in-out infinite;
-}
-
-@keyframes floating {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.box {
-  position: absolute;
-  bottom: 0;
-  width: 230px;
-  height: 125px;
-  background: #e85b82;
-  border-radius: 8px;
-  box-shadow: 0 15px 25px #b8325b66;
-}
-
-.box::before {
-  content: "";
-  position: absolute;
-  left: 95px;
-  width: 40px;
-  height: 125px;
-  background: #ffb2c9;
-}
-
-.lid {
-  position: absolute;
-  top: 5px;
-  left: -10px;
-  width: 250px;
-  height: 40px;
-  background: #d9436d;
-  border-radius: 8px;
-  transform-origin: left bottom;
-  animation: openLid 4s ease-in-out forwards;
-  z-index: 5;
-}
-
-.lid::after {
-  content: "";
-  position: absolute;
-  left: 105px;
-  width: 40px;
-  height: 40px;
-  background: #ffb2c9;
-}
-
-@keyframes openLid {
-  0%, 25% {
-    transform: rotate(0deg);
-  }
-
-  45%, 100% {
-    transform: rotate(-35deg) translate(-15px, -35px);
-  }
-}
-
-/* Quyoncha */
-.bunny {
-  position: absolute;
-  bottom: 65px;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  opacity: 0;
-  animation: bunnyOut 4s ease-in-out forwards;
-  z-index: 3;
-}
-
-@keyframes bunnyOut {
-  0%, 35% {
-    transform: translateX(-50%) translateY(80px);
-    opacity: 0;
-  }
-
-  55% {
-    transform: translateX(-50%) translateY(-25px);
-    opacity: 1;
-  }
-
-  70%, 100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Quloqlar */
-.ear {
-  position: absolute;
-  width: 35px;
-  height: 75px;
-  background: white;
-  border-radius: 50%;
-  top: -65px;
-  box-shadow: 0 4px 8px #aaa;
-}
-
-.ear.left {
-  left: 12px;
-  transform: rotate(-15deg);
-}
-
-.ear.right {
-  right: 12px;
-  transform: rotate(15deg);
-}
-
-/* Quyon boshi */
-.head {
-  position: relative;
-  width: 115px;
-  height: 105px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 8px 15px #aaa;
-}
-
-/* Ko'zlar */
-.eye {
-  position: absolute;
-  top: 38px;
-  width: 13px;
-  height: 17px;
-  background: #222;
-  border-radius: 50%;
-}
-
-.eye.left {
-  left: 28px;
-}
-
-.eye.right {
-  right: 28px;
-}
-
-/* Burun */
-.nose {
-  position: absolute;
-  top: 62px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15px;
-  height: 12px;
-  background: #e87898;
-  border-radius: 50%;
-}
-
-/* Yurak */
-.rabbit-heart {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 50px;
-  opacity: 0;
-  animation: heartAppear 5s ease-in-out forwards;
-  z-index: 10;
-}
-
-@keyframes heartAppear {
-  0%, 55% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0);
-  }
-
-  70% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.3);
-  }
-
-  80%, 100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-/* Yozuv */
-.title {
-  margin-top: 35px;
-  color: #a62e55;
-  font-size: clamp(30px, 8vw, 55px);
-  font-family: cursive;
-  opacity: 0;
-  animation: titleAppear 2s ease forwards;
-  animation-delay: 5.5s;
-  text-shadow: 2px 2px 5px white;
-}
-
-@keyframes titleAppear {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.7);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Yaltirashlar */
-.sparkle {
-  position: absolute;
-  color: white;
-  font-size: 25px;
-  animation: sparkle 2s infinite alternate;
-}
-
-@keyframes sparkle {
-  from {
-    opacity: 0.2;
-    transform: scale(0.5);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1.5);
-  }
+.loading{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#a52d58;
+  font-size:22px;
 }
 </style>
 </head>
 
 <body>
 
-<script>
-/* Uchib yuradigan yurakchalar */
-for (let i = 0; i < 25; i++) {
-  const heart = document.createElement("div");
+<div class="loading" id="loading">❤️</div>
+<div id="scene"></div>
 
-  heart.className = "heart";
-  heart.innerHTML = "♥";
-
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (15 + Math.random() * 30) + "px";
-  heart.style.animationDuration = (5 + Math.random() * 6) + "s";
-  heart.style.animationDelay = Math.random() * 6 + "s";
-
-  document.body.appendChild(heart);
-}
-
-/* Yaltiraydigan yulduzchalar */
-for (let i = 0; i < 18; i++) {
-  const star = document.createElement("div");
-
-  star.className = "sparkle";
-  star.innerHTML = "✦";
-
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.top = Math.random() * 100 + "vh";
-  star.style.animationDelay = Math.random() * 2 + "s";
-
-  document.body.appendChild(star);
-}
-</script>
-
-<div class="scene">
-
-  <div class="gift">
-
-    <div class="bunny">
-      <div class="rabbit-heart">❤️</div>
-
-      <div class="ear left"></div>
-      <div class="ear right"></div>
-
-      <div class="head">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="nose"></div>
-      </div>
-    </div>
-
-    <div class="lid"></div>
-    <div class="box"></div>
-
-  </div>
-
-  <h1 class="title">
-    Mitti malikam uchun ❤️
-  </h1>
-
+<div class="message" id="message">
+  Mitti malikam uchun ❤️
 </div>
+
+<script type="module">
+
+import * as THREE from
+"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+
+import {GLTFLoader} from
+"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js";
+
+const scene = new THREE.Scene();
+
+scene.background = new THREE.Color(0xffc5d9);
+
+const camera = new THREE.PerspectiveCamera(
+  45,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100
+);
+
+camera.position.set(0,2.5,8);
+
+const renderer = new THREE.WebGLRenderer({
+  antialias:true,
+  alpha:true
+});
+
+renderer.setSize(
+  window.innerWidth,
+  window.innerHeight
+);
+
+renderer.setPixelRatio(
+  Math.min(window.devicePixelRatio,2)
+);
+
+renderer.shadowMap.enabled=true;
+
+document
+.getElementById("scene")
+.appendChild(renderer.domElement);
+
+
+/* YORUG'LIK */
+
+const ambient = new THREE.AmbientLight(
+  0xffffff,
+  2
+);
+
+scene.add(ambient);
+
+const light = new THREE.DirectionalLight(
+  0xffffff,
+  4
+);
+
+light.position.set(3,7,5);
+light.castShadow=true;
+
+scene.add(light);
+
+const pinkLight = new THREE.PointLight(
+  0xff72a5,
+  5,
+  10
+);
+
+pinkLight.position.set(-3,2,3);
+
+scene.add(pinkLight);
+
+
+/* POL */
+
+const floorGeometry =
+new THREE.CircleGeometry(7,64);
+
+const floorMaterial =
+new THREE.MeshStandardMaterial({
+  color:0xffb4cc,
+  roughness:0.8
+});
+
+const floor =
+new THREE.Mesh(
+  floorGeometry,
+  floorMaterial
+);
+
+floor.rotation.x=-Math.PI/2;
+floor.position.y=-1.7;
+floor.receiveShadow=true;
+
+scene.add(floor);
+
+
+/* SOVG'A QUTISI */
+
+const boxGroup =
+new THREE.Group();
+
+scene.add(boxGroup);
+
+
+/* QUTI */
+
+const boxGeometry =
+new THREE.BoxGeometry(
+  3.2,
+  2.1,
+  2.5
+);
+
+const boxMaterial =
+new THREE.MeshStandardMaterial({
+  color:0xe94f7d,
+  roughness:0.35,
+  metalness:0.05
+});
+
+const box =
+new THREE.Mesh(
+  boxGeometry,
+  boxMaterial
+);
+
+box.position.y=-0.55;
+box.castShadow=true;
+box.receiveShadow=true;
+
+boxGroup.add(box);
+
+
+/* QUTI LENTASI */
+
+const ribbonMaterial =
+new THREE.MeshStandardMaterial({
+  color:0xffc1d5,
+  roughness:0.3
+});
+
+const ribbon1 =
+new THREE.Mesh(
+  new THREE.BoxGeometry(
+    0.55,
+    2.15,
+    2.55
+  ),
+  ribbonMaterial
+);
+
+ribbon1.position.y=-0.55;
+
+boxGroup.add(ribbon1);
+
+
+const ribbon2 =
+new THREE.Mesh(
+  new THREE.BoxGeometry(
+    3.25,
+    2.15,
+    0.55
+  ),
+  ribbonMaterial
+);
+
+ribbon2.position.y=-0.55;
+
+boxGroup.add(ribbon2);
+
+
+/* QUTI QOPQOG'I */
+
+const lid =
+new THREE.Mesh(
+  new THREE.BoxGeometry(
+    3.55,
+    0.45,
+    2.8
+  ),
+  new THREE.MeshStandardMaterial({
+    color:0xd93667,
+    roughness:0.3
+  })
+);
+
+lid.position.y=0.65;
+
+lid.castShadow=true;
+
+boxGroup.add(lid);
+
+
+/* QOPQOQ LENTASI */
+
+const lidRibbon =
+new THREE.Mesh(
+  new THREE.BoxGeometry(
+    0.58,
+    0.48,
+    2.85
+  ),
+  ribbonMaterial
+);
+
+lidRibbon.position.y=0.65;
+
+boxGroup.add(lidRibbon);
+
+
+/* 3D YURAK */
+
+function createHeart(){
+
+  const shape =
+  new THREE.Shape();
+
+  shape.moveTo(0,0);
+
+  shape.bezierCurveTo(
+    -1.5,1.5,
+    -2.5,-0.2,
+    0,-1.7
+  );
+
+  shape.bezierCurveTo(
+    2.5,-0.2,
+    1.5,1.5,
+    0,0
+  );
+
+  const geometry =
+  new THREE.ExtrudeGeometry(
+    shape,
+    {
+      depth:0.5,
+      bevelEnabled:true,
+      bevelSegments:5,
+      bevelSize:0.15,
+      bevelThickness:0.15
+    }
+  );
+
+  const material =
+  new THREE.MeshStandardMaterial({
+    color:0xff174f,
+    roughness:0.2,
+    metalness:0.2
+  });
+
+  const heart =
+  new THREE.Mesh(
+    geometry,
+    material
+  );
+
+  heart.scale.set(
+    0.45,
+    0.45,
+    0.45
+  );
+
+  heart.rotation.z=Math.PI;
+
+  return heart;
+}
+
+const heart =
+createHeart();
+
+heart.position.set(
+  0,
+  2.2,
+  0
+);
+
+heart.visible=false;
+
+scene.add(heart);
+
+
+/* QUYONCHA */
+
+const bunny =
+new THREE.Group();
+
+bunny.position.y=-0.3;
+
+bunny.scale.set(
+  0.01,
+  0.01,
+  0.01
+);
+
+scene.add(bunny);
+
+
+/* TANA */
+
+const whiteMaterial =
+new THREE.MeshStandardMaterial({
+  color:0xffffff,
+  roughness:0.8
+});
+
+const pinkMaterial =
+new THREE.MeshStandardMaterial({
+  color:0xffa8c0,
+  roughness:0.7
+});
+
+
+const body =
+new THREE.Mesh(
+  new THREE.SphereGeometry(
+    1,
+    48,
+    48
+  ),
+  whiteMaterial
+);
+
+body.scale.set(
+  1.05,
+  1.25,
+  0.8
+);
+
+body.position.y=0;
+
+body.castShadow=true;
+
+bunny.add(body);
+
+
+/* BOSH */
+
+const head =
+new THREE.Mesh(
+  new THREE.SphereGeometry(
+    0.9,
+    48,
+    48
+  ),
+  whiteMaterial
+);
+
+head.position.y=1.25;
+
+head.castShadow=true;
+
+bunny.add(head);
+
+
+/* QULOQLAR */
+
+function createEar(x){
+
+  const ear =
+  new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.32,
+      32,
+      32
+    ),
+    whiteMaterial
+  );
+
+  ear.scale.set(
+    0.7,
+    2.2,
+    0.65
+  );
+
+  ear.position.set(
+    x,
+    2.15,
+    0
+  );
+
+  ear.rotation.z=
+  x>0 ? -0.2 : 0.2;
+
+  bunny.add(ear);
+
+  return ear;
+}
+
+const earLeft=
+createEar(-0.45);
+
+const earRight=
+createEar(0.45);
+
+
+/* QULOQ ICHI */
+
+function createInnerEar(x){
+
+  const inner =
+  new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.2,
+      24,
+      24
+    ),
+    pinkMaterial
+  );
+
+  inner.scale.set(
+    0.7,
+    2,
+    0.2
+  );
+
+  inner.position.set(
+    x,
+    2.15,
+    0.25
+  );
+
+  bunny.add(inner);
+}
+
+createInnerEar(-0.45);
+createInnerEar(0.45);
+
+
+/* KO'ZLAR */
+
+function createEye(x){
+
+  const eye =
+  new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.12,
+      24,
+      24
+    ),
+    new THREE.MeshStandardMaterial({
+      color:0x21151a,
+      roughness:0.2
+    })
+  );
+
+  eye.position.set(
+    x,
+    1.4,
+    0.82
+  );
+
+  bunny.add(eye);
+}
+
+createEye(-0.32);
+createEye(0.32);
+
+
+/* BURUN */
+
+const nose =
+new THREE.Mesh(
+  new THREE.SphereGeometry(
+    0.13,
+    24,
+    24
+  ),
+  pinkMaterial
+);
+
+nose.position.set(
+  0,
+  1.12,
+  0.88
+);
+
+bunny.add(nose);
+
+
+/* OYOQLAR */
+
+function createFoot(x){
+
+  const foot =
+  new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.38,
+      32,
+      32
+    ),
+    whiteMaterial
+  );
+
+  foot.scale.set(
+    1.3,
+    0.6,
+    1
+  );
+
+  foot.position.set(
+    x,
+    -1.05,
+    0.25
+  );
+
+  bunny.add(foot);
+}
+
+createFoot(-0.45);
+createFoot(0.45);
+
+
+/* QO'LLAR */
+
+function createArm(x){
+
+  const arm =
+  new THREE.Mesh(
+    new THREE.SphereGeometry(
+      0.3,
+      32,
+      32
+    ),
+    whiteMaterial
+  );
+
+  arm.scale.set(
+    0.6,
+    1.6,
+    0.6
+  );
+
+  arm.position.set(
+    x,
+    0.1,
+    0.55
+  );
+
+  arm.rotation.z=
+  x>0 ? -0.6 : 0.6;
+
+  bunny.add(arm);
+
+  return arm;
+}
+
+const armLeft=
+createArm(-0.9);
+
+const armRight=
+createArm(0.9);
+
+
+/* ANIMATSIYA */
+
+let start =
+performance.now();
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  const time =
+  (performance.now()-start)/1000;
+
+
+  /* Kamera yumshoq harakat */
+
+  camera.position.x =
+  Math.sin(time*0.3)*0.25;
+
+  camera.lookAt(
+    0,
+    0.4,
+    0
+  );
+
+
+  /* QUTI OCHILISHI */
+
+  if(time>2){
+
+    lid.rotation.z =
+    Math.min(
+      (time-2)*0.8,
+      0.8
+    );
+
+  }
+
+
+  /* QUYONCHA SAKRAB CHIQADI */
+
+  if(time>3){
+
+    const t =
+    Math.min(
+      (time-3)/2,
+      1
+    );
+
+    bunny.scale.set(
+      t,
+      t,
+      t
+    );
+
+    bunny.position.y =
+    -0.3+
+    Math.sin(t*Math.PI)*1.2;
+
+  }
+
+
+  /* YURAK PAYDO BO'LADI */
+
+  if(time>5){
+
+    heart.visible=true;
+
+    heart.position.y =
+    1.6+
+    Math.sin(time*2)*0.15;
+
+    heart.rotation.y =
+    time;
+
+  }
+
+
+  /* QUYONCHA HARAKATI */
+
+  if(time>5){
+
+    bunny.rotation.y =
+    Math.sin(time*1.5)*0.08;
+
+    bunny.position.y =
+    -0.3+
+    Math.sin(time*2)*0.08;
+
+  }
+
+
+  /* MATN */
+
+  if(time>7){
+
+    document
+    .getElementById("message")
+    .classList
+    .add("show");
+
+  }
+
+
+  renderer.render(
+    scene,
+    camera
+  );
+}
+
+animate();
+
+
+/* FONDA UCHUVCHI YURAKCHALAR */
+
+for(let i=0;i<35;i++){
+
+  const heartShape =
+  new THREE.Shape();
+
+  heartShape.moveTo(0,0);
+
+  heartShape.bezierCurveTo(
+    -0.5,0.5,
+    -0.8,-0.1,
+    0,-0.6
+  );
+
+  heartShape.bezierCurveTo(
+    0.8,-0.1,
+    0.5,0.5,
+    0,0
+  );
+
+  const geo =
+  new THREE.ShapeGeometry(
+    heartShape
+  );
+
+  const mat =
+  new THREE.MeshBasicMaterial({
+    color:0xe85b83,
+    transparent:true,
+    opacity:0.5,
+    side:THREE.DoubleSide
+  });
+
+  const h =
+  new THREE.Mesh(
+    geo,
+    mat
+  );
+
+  h.position.set(
+    (Math.random()-0.5)*12,
+    -2+Math.random()*5,
+    -2
+  );
+
+  h.scale.setScalar(
+    0.2+Math.random()*0.5
+  );
+
+  scene.add(h);
+
+  h.userData.speed=
+  0.005+Math.random()*0.015;
+
+  h.userData.rotation=
+  Math.random()*0.02;
+
+  h.userData.startY=
+  h.position.y;
+}
+
+
+/* YURAKLARNI HARAKATLANTIRISH */
+
+function animateHearts(){
+
+  scene.children.forEach(obj=>{
+
+    if(obj.userData.speed){
+
+      obj.position.y+=
+      obj.userData.speed;
+
+      obj.rotation.z+=
+      obj.userData.rotation;
+
+      if(obj.position.y>6){
+
+        obj.position.y=-3;
+
+      }
+
+    }
+
+  });
+
+  requestAnimationFrame(
+    animateHearts
+  );
+}
+
+animateHearts();
+
+
+/* EKRAN O'LCHAMI */
+
+window.addEventListener(
+  "resize",
+  ()=>{
+
+    camera.aspect=
+    window.innerWidth/
+    window.innerHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
+  }
+);
+
+document
+.getElementById("loading")
+.style.display="none";
+
+</script>
 
 </body>
 </html>
