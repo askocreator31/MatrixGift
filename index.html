@@ -3,716 +3,393 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mitti malikam uchun ❤️</title>
+
+<title>Matrix</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body {
-  overflow: hidden;
-  background: #ffc5d9;
+body{
+  overflow:hidden;
+  background:#000;
+  font-family:monospace;
 }
 
-#scene {
-  width: 100vw;
-  height: 100vh;
+/* MATRIX ORQA FON */
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
 }
 
-.message {
-  position: fixed;
-  bottom: 7%;
-  width: 100%;
-  text-align: center;
-  color: #a52d58;
-  font-size: clamp(28px, 8vw, 60px);
-  font-family: Georgia, serif;
-  font-weight: bold;
-  text-shadow: 0 3px 10px white;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 2s;
-  z-index: 10;
+/* MARKAZDAGI YOZUV */
+
+h1{
+  position:absolute;
+  top:45%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  width:100%;
+
+  text-align:center;
+
+  color:#00ff66;
+
+  font-size:clamp(35px,10vw,85px);
+
+  text-shadow:
+  0 0 10px #00ff66,
+  0 0 25px #00ff66,
+  0 0 50px #00ff66;
+
+  animation:pulse 2s infinite alternate;
 }
 
-.message.show {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes pulse{
+
+  from{
+    opacity:.7;
+    transform:translate(-50%,-50%) scale(1);
+  }
+
+  to{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.06);
+  }
+
 }
+
+/* TUGMA */
+
+#start{
+
+  position:absolute;
+
+  bottom:80px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  padding:15px 30px;
+
+  background:#000;
+
+  color:#00ff66;
+
+  border:2px solid #00ff66;
+
+  border-radius:8px;
+
+  font-size:16px;
+
+  font-family:monospace;
+
+  box-shadow:
+  0 0 10px #00ff66,
+  0 0 25px #00ff66;
+
+  cursor:pointer;
+
+  animation:buttonGlow 1.5s infinite alternate;
+
+}
+
+@keyframes buttonGlow{
+
+  from{
+    box-shadow:0 0 10px #00ff66;
+  }
+
+  to{
+    box-shadow:
+    0 0 20px #00ff66,
+    0 0 40px #00ff66;
+  }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div id="scene"></div>
+<canvas id="matrix"></canvas>
 
-<div class="message" id="message">
-  Mitti malikam uchun ❤️
-</div>
+<h1>Assalomu alaykum 👋</h1>
 
-<script type="module">
+<button id="start" onclick="startMatrix()">
+ENTER THE MATRIX
+</button>
 
-import * as THREE from
-"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
+<script>
 
-/* SAHNA */
+/* =========================
+   MATRIX EFFEKT
+========================= */
 
-const scene = new THREE.Scene();
+const canvas =
+document.getElementById("matrix");
 
-scene.background =
-new THREE.Color(0xffc5d9);
+const ctx =
+canvas.getContext("2d");
 
+canvas.width =
+window.innerWidth;
 
-/* KAMERA */
+canvas.height =
+window.innerHeight;
 
-const camera =
-new THREE.PerspectiveCamera(
-  45,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  100
-);
 
-camera.position.set(0, 2.5, 8);
+const letters =
+"アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+const fontSize = 16;
 
-/* RENDERER */
+let columns =
+Math.floor(canvas.width / fontSize);
 
-const renderer =
-new THREE.WebGLRenderer({
-  antialias: true
-});
+let drops =
+Array(columns).fill(1);
 
-renderer.setSize(
-  window.innerWidth,
-  window.innerHeight
-);
 
-renderer.setPixelRatio(
-  Math.min(window.devicePixelRatio, 2)
-);
+function drawMatrix(){
 
-renderer.shadowMap.enabled = true;
+  ctx.fillStyle =
+  "rgba(0,0,0,0.07)";
 
-document
-.getElementById("scene")
-.appendChild(renderer.domElement);
-
-
-/* YORUG'LIK */
-
-scene.add(
-  new THREE.AmbientLight(
-    0xffffff,
-    2
-  )
-);
-
-const light =
-new THREE.DirectionalLight(
-  0xffffff,
-  4
-);
-
-light.position.set(3, 7, 5);
-light.castShadow = true;
-
-scene.add(light);
-
-const pinkLight =
-new THREE.PointLight(
-  0xff72a5,
-  5,
-  12
-);
-
-pinkLight.position.set(
-  -3,
-  2,
-  3
-);
-
-scene.add(pinkLight);
-
-
-/* POL */
-
-const floor =
-new THREE.Mesh(
-  new THREE.CircleGeometry(7, 64),
-  new THREE.MeshStandardMaterial({
-    color: 0xffb4cc,
-    roughness: 0.8
-  })
-);
-
-floor.rotation.x =
--Math.PI / 2;
-
-floor.position.y = -1.7;
-
-scene.add(floor);
-
-
-/* QUTI */
-
-const gift =
-new THREE.Group();
-
-scene.add(gift);
-
-
-const box =
-new THREE.Mesh(
-  new THREE.BoxGeometry(3.2, 2.1, 2.5),
-  new THREE.MeshStandardMaterial({
-    color: 0xe94f7d,
-    roughness: 0.35
-  })
-);
-
-box.position.y = -0.55;
-box.castShadow = true;
-
-gift.add(box);
-
-
-/* LENTA */
-
-const ribbonMaterial =
-new THREE.MeshStandardMaterial({
-  color: 0xffc1d5,
-  roughness: 0.3
-});
-
-
-const ribbonVertical =
-new THREE.Mesh(
-  new THREE.BoxGeometry(
-    0.55,
-    2.15,
-    2.55
-  ),
-  ribbonMaterial
-);
-
-ribbonVertical.position.y = -0.55;
-
-gift.add(ribbonVertical);
-
-
-const ribbonHorizontal =
-new THREE.Mesh(
-  new THREE.BoxGeometry(
-    3.25,
-    2.15,
-    0.55
-  ),
-  ribbonMaterial
-);
-
-ribbonHorizontal.position.y = -0.55;
-
-gift.add(ribbonHorizontal);
-
-
-/* QOPQOQ */
-
-const lid =
-new THREE.Mesh(
-  new THREE.BoxGeometry(
-    3.55,
-    0.45,
-    2.8
-  ),
-  new THREE.MeshStandardMaterial({
-    color: 0xd93667,
-    roughness: 0.3
-  })
-);
-
-lid.position.y = 0.65;
-
-gift.add(lid);
-
-
-/* QUYONCHA */
-
-const bunny =
-new THREE.Group();
-
-bunny.scale.set(
-  0.01,
-  0.01,
-  0.01
-);
-
-bunny.position.y = -0.2;
-
-scene.add(bunny);
-
-
-const white =
-new THREE.MeshStandardMaterial({
-  color: 0xffffff,
-  roughness: 0.8
-});
-
-const pink =
-new THREE.MeshStandardMaterial({
-  color: 0xff9fba,
-  roughness: 0.7
-});
-
-
-/* TANA */
-
-const body =
-new THREE.Mesh(
-  new THREE.SphereGeometry(
-    1,
-    48,
-    48
-  ),
-  white
-);
-
-body.scale.set(
-  1.05,
-  1.25,
-  0.8
-);
-
-bunny.add(body);
-
-
-/* BOSH */
-
-const head =
-new THREE.Mesh(
-  new THREE.SphereGeometry(
-    0.9,
-    48,
-    48
-  ),
-  white
-);
-
-head.position.y = 1.25;
-
-bunny.add(head);
-
-
-/* QULOQLAR */
-
-function ear(x) {
-
-  const e =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      0.32,
-      32,
-      32
-    ),
-    white
-  );
-
-  e.scale.set(
-    0.7,
-    2.2,
-    0.65
-  );
-
-  e.position.set(
-    x,
-    2.15,
-    0
-  );
-
-  bunny.add(e);
-}
-
-ear(-0.45);
-ear(0.45);
-
-
-/* KO'ZLAR */
-
-function eye(x) {
-
-  const e =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      0.12,
-      24,
-      24
-    ),
-    new THREE.MeshStandardMaterial({
-      color: 0x21151a
-    })
-  );
-
-  e.position.set(
-    x,
-    1.4,
-    0.82
-  );
-
-  bunny.add(e);
-}
-
-eye(-0.32);
-eye(0.32);
-
-
-/* BURUN */
-
-const nose =
-new THREE.Mesh(
-  new THREE.SphereGeometry(
-    0.13,
-    24,
-    24
-  ),
-  pink
-);
-
-nose.position.set(
-  0,
-  1.12,
-  0.88
-);
-
-bunny.add(nose);
-
-
-/* OYOQLAR */
-
-function foot(x) {
-
-  const f =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      0.38,
-      32,
-      32
-    ),
-    white
-  );
-
-  f.scale.set(
-    1.3,
-    0.6,
-    1
-  );
-
-  f.position.set(
-    x,
-    -1.05,
-    0.25
-  );
-
-  bunny.add(f);
-}
-
-foot(-0.45);
-foot(0.45);
-
-
-/* QO'LLAR */
-
-function arm(x) {
-
-  const a =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      0.3,
-      32,
-      32
-    ),
-    white
-  );
-
-  a.scale.set(
-    0.6,
-    1.6,
-    0.6
-  );
-
-  a.position.set(
-    x,
-    0.1,
-    0.55
-  );
-
-  bunny.add(a);
-}
-
-arm(-0.9);
-arm(0.9);
-
-
-/* YURAK */
-
-const heartShape =
-new THREE.Shape();
-
-heartShape.moveTo(0, 0);
-
-heartShape.bezierCurveTo(
-  -1.5,
-  1.5,
-  -2.5,
-  -0.2,
-  0,
-  -1.7
-);
-
-heartShape.bezierCurveTo(
-  2.5,
-  -0.2,
-  1.5,
-  1.5,
-  0,
-  0
-);
-
-
-const heart =
-new THREE.Mesh(
-  new THREE.ExtrudeGeometry(
-    heartShape,
-    {
-      depth: 0.5,
-      bevelEnabled: true,
-      bevelSegments: 5,
-      bevelSize: 0.15,
-      bevelThickness: 0.15
-    }
-  ),
-  new THREE.MeshStandardMaterial({
-    color: 0xff174f,
-    roughness: 0.2
-  })
-);
-
-heart.scale.set(
-  0.45,
-  0.45,
-  0.45
-);
-
-heart.rotation.z =
-Math.PI;
-
-heart.position.set(
-  0,
-  2.5,
-  0
-);
-
-heart.visible = false;
-
-scene.add(heart);
-
-
-/* FON YURAKCHALARI */
-
-const floatingHearts = [];
-
-for (
-  let i = 0;
-  i < 35;
-  i++
-) {
-
-  const h =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      0.08,
-      12,
-      12
-    ),
-    new THREE.MeshBasicMaterial({
-      color: 0xe85b83
-    })
-  );
-
-  h.position.set(
-    (Math.random() - 0.5) * 12,
-    -2 + Math.random() * 6,
-    -2
-  );
-
-  h.scale.set(
-    1.5,
-    0.7,
-    0.5
-  );
-
-  scene.add(h);
-
-  floatingHearts.push(h);
-}
-
-
-/* ANIMATSIYA */
-
-const start =
-performance.now();
-
-
-function animate() {
-
-  requestAnimationFrame(
-    animate
-  );
-
-  const time =
-  (performance.now() - start) / 1000;
-
-
-  /* QUTI QOPQOG'I OCHILADI */
-
-  if (time > 2) {
-
-    lid.rotation.z =
-    Math.min(
-      (time - 2) * 0.8,
-      0.8
-    );
-
-  }
-
-
-  /* QUYONCHA CHIQADI */
-
-  if (time > 3) {
-
-    const progress =
-    Math.min(
-      (time - 3) / 2,
-      1
-    );
-
-    bunny.scale.set(
-      progress,
-      progress,
-      progress
-    );
-
-    bunny.position.y =
-    -0.2 +
-    Math.sin(
-      progress * Math.PI
-    ) * 1.2;
-
-  }
-
-
-  /* YURAK PAYDO BO'LADI */
-
-  if (time > 5) {
-
-    heart.visible = true;
-
-    heart.position.y =
-    2.3 +
-    Math.sin(time * 2) * 0.15;
-
-    heart.rotation.y =
-    time;
-
-  }
-
-
-  /* QUYONCHA HARAKATI */
-
-  if (time > 5) {
-
-    bunny.rotation.y =
-    Math.sin(time * 1.5) * 0.08;
-
-    bunny.position.y =
-    -0.2 +
-    Math.sin(time * 2) * 0.08;
-
-  }
-
-
-  /* YOZUV */
-
-  if (time > 7) {
-
-    document
-    .getElementById("message")
-    .classList
-    .add("show");
-
-  }
-
-
-  /* FON YURAKCHALARI */
-
-  floatingHearts.forEach(
-    h => {
-
-      h.position.y += 0.01;
-
-      h.rotation.z += 0.02;
-
-      if (
-        h.position.y > 5
-      ) {
-
-        h.position.y = -3;
-
-      }
-
-    }
-  );
-
-
-  camera.position.x =
-  Math.sin(time * 0.3) * 0.25;
-
-  camera.lookAt(
+  ctx.fillRect(
     0,
-    0.4,
-    0
+    0,
+    canvas.width,
+    canvas.height
   );
 
 
-  renderer.render(
-    scene,
-    camera
-  );
+  ctx.fillStyle =
+  "#00ff66";
+
+  ctx.font =
+  fontSize + "px monospace";
+
+
+  for(
+    let i = 0;
+    i < drops.length;
+    i++
+  ){
+
+    const text =
+    letters[
+      Math.floor(
+        Math.random() *
+        letters.length
+      )
+    ];
+
+
+    ctx.fillText(
+      text,
+      i * fontSize,
+      drops[i] * fontSize
+    );
+
+
+    if(
+      drops[i] * fontSize >
+      canvas.height
+      &&
+      Math.random() > 0.975
+    ){
+
+      drops[i] = 0;
+
+    }
+
+
+    drops[i]++;
+
+  }
 
 }
 
-animate();
+
+setInterval(
+  drawMatrix,
+  35
+);
 
 
-/* EKRAN MOSLASHUVI */
+/* =========================
+   MATRIX HACKER OVOZI
+========================= */
+
+function startMatrix(){
+
+  const audio =
+  new AudioContext();
+
+
+  /* 1-Ovoz */
+
+  const osc =
+  audio.createOscillator();
+
+  const gain =
+  audio.createGain();
+
+
+  osc.type =
+  "sawtooth";
+
+
+  osc.frequency.setValueAtTime(
+    55,
+    audio.currentTime
+  );
+
+
+  osc.frequency.exponentialRampToValueAtTime(
+    700,
+    audio.currentTime + 2
+  );
+
+
+  gain.gain.setValueAtTime(
+    0.001,
+    audio.currentTime
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.35,
+    audio.currentTime + 0.3
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audio.currentTime + 3
+  );
+
+
+  osc.connect(gain);
+
+  gain.connect(
+    audio.destination
+  );
+
+
+  osc.start();
+
+  osc.stop(
+    audio.currentTime + 3
+  );
+
+
+  /* 2-CHUQUR DIGITAL OVOZ */
+
+  setTimeout(() => {
+
+    const osc2 =
+    audio.createOscillator();
+
+    const gain2 =
+    audio.createGain();
+
+
+    osc2.type =
+    "square";
+
+
+    osc2.frequency.setValueAtTime(
+      120,
+      audio.currentTime
+    );
+
+
+    osc2.frequency.exponentialRampToValueAtTime(
+      40,
+      audio.currentTime + 2
+    );
+
+
+    gain2.gain.setValueAtTime(
+      0.001,
+      audio.currentTime
+    );
+
+
+    gain2.gain.exponentialRampToValueAtTime(
+      0.18,
+      audio.currentTime + 0.2
+    );
+
+
+    gain2.gain.exponentialRampToValueAtTime(
+      0.001,
+      audio.currentTime + 2
+    );
+
+
+    osc2.connect(gain2);
+
+    gain2.connect(
+      audio.destination
+    );
+
+
+    osc2.start();
+
+    osc2.stop(
+      audio.currentTime + 2
+    );
+
+
+  }, 500);
+
+
+  /* TUGMANI YOPISH */
+
+  document
+  .getElementById("start")
+  .style.display =
+  "none";
+
+}
+
+
+/* EKRAN O'LCHAMI */
 
 window.addEventListener(
   "resize",
   () => {
 
-    camera.aspect =
-    window.innerWidth /
+    canvas.width =
+    window.innerWidth;
+
+    canvas.height =
     window.innerHeight;
 
-    camera.updateProjectionMatrix();
 
-    renderer.setSize(
-      window.innerWidth,
-      window.innerHeight
+    columns =
+    Math.floor(
+      canvas.width / fontSize
     );
+
+
+    drops =
+    Array(columns).fill(1);
 
   }
 );
