@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang='uz'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Dilshoda</title><style>
+html,body{margin:0;height:100%;overflow:hidden;background:#090010;font-family:cursive}
+canvas{position:fixed;inset:0}
+h1{position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);color:#ff6fd8;
+font-size:clamp(48px,10vw,90px);text-shadow:0 0 15px #ff4fc3,0 0 40px #ff4fc3}
+button{position:absolute;left:50%;bottom:60px;transform:translateX(-50%);
+padding:14px 28px;border:2px solid #ff6fd8;background:#17001f;color:#fff;border-radius:30px;
+box-shadow:0 0 20px #ff6fd8}
+</style></head><body><canvas id='c'></canvas><h1>Dilshoda🫶</h1><button onclick='beep()'>ENTER ❤️</button>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+function rs(){c.width=innerWidth;c.height=innerHeight}rs();onresize=rs;
+let hearts=Array.from({length:170},()=>({x:Math.random()*c.width,y:Math.random()*c.height,s:8+Math.random()*16,v:1+Math.random()*3}));
+function drawHeart(cx,cy,s){
+x.beginPath();x.moveTo(cx,cy);
+x.bezierCurveTo(cx-s,cy-s,cx-2*s,cy+s,cx,cy+2*s);
+x.bezierCurveTo(cx+2*s,cy+s,cx+s,cy-s,cx,cy);
+x.fill();}
+(function a(){x.fillStyle="rgba(9,0,16,.25)";x.fillRect(0,0,c.width,c.height);
+for(let h of hearts){x.fillStyle="#ff4fc3";x.shadowBlur=15;x.shadowColor="#ff4fc3";drawHeart(h.x,h.y,h.s/4);h.y+=h.v; if(h.y>c.height+30){h.y=-20;h.x=Math.random()*c.width;}}
+requestAnimationFrame(a)})();
+function beep(){const A=new AudioContext(),o=A.createOscillator(),g=A.createGain();o.type='triangle';o.frequency.value=220;o.connect(g);g.connect(A.destination);g.gain.value=.0001;g.gain.exponentialRampToValueAtTime(.15,A.currentTime+.1);o.frequency.exponentialRampToValueAtTime(660,A.currentTime+1.5);g.gain.exponentialRampToValueAtTime(.0001,A.currentTime+2);o.start();o.stop(A.currentTime+2);}
+</script></body></html>
