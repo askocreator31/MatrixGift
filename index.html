@@ -3,397 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Matrix</title>
+<title>Dilshoda🫶</title>
 
 <style>
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-  overflow:hidden;
-  background:#000;
-  font-family:monospace;
+background:#000;
+overflow:hidden;
+font-family:Consolas,monospace;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:#00ff66;
 }
-
-/* MATRIX ORQA FON */
 
 canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
 }
 
-/* MARKAZDAGI YOZUV */
+#overlay{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+width:90%;
+max-width:800px;
+}
 
 h1{
-  position:absolute;
-  top:45%;
-  left:50%;
-  transform:translate(-50%,-50%);
-
-  width:100%;
-
-  text-align:center;
-
-  color:#00ff66;
-
-  font-size:clamp(35px,10vw,85px);
-
-  text-shadow:
-  0 0 10px #00ff66,
-  0 0 25px #00ff66,
-  0 0 50px #00ff66;
-
-  animation:pulse 2s infinite alternate;
+font-size:60px;
+color:#ff4fd8;
+text-shadow:
+0 0 10px #ff4fd8,
+0 0 25px #ff4fd8,
+0 0 60px #ff4fd8;
+margin-bottom:30px;
+animation:glow 2s infinite alternate;
 }
 
-@keyframes pulse{
+@keyframes glow{
 
-  from{
-    opacity:.7;
-    transform:translate(-50%,-50%) scale(1);
-  }
+from{
 
-  to{
-    opacity:1;
-    transform:translate(-50%,-50%) scale(1.06);
-  }
+text-shadow:
+0 0 10px #ff4fd8,
+0 0 20px #ff4fd8;
 
 }
 
-/* TUGMA */
+to{
 
-#start{
-
-  position:absolute;
-
-  bottom:80px;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
-  padding:15px 30px;
-
-  background:#000;
-
-  color:#00ff66;
-
-  border:2px solid #00ff66;
-
-  border-radius:8px;
-
-  font-size:16px;
-
-  font-family:monospace;
-
-  box-shadow:
-  0 0 10px #00ff66,
-  0 0 25px #00ff66;
-
-  cursor:pointer;
-
-  animation:buttonGlow 1.5s infinite alternate;
+text-shadow:
+0 0 25px #ff4fd8,
+0 0 50px #ff4fd8,
+0 0 80px #ff4fd8;
 
 }
 
-@keyframes buttonGlow{
+}
 
-  from{
-    box-shadow:0 0 10px #00ff66;
-  }
+#text{
 
-  to{
-    box-shadow:
-    0 0 20px #00ff66,
-    0 0 40px #00ff66;
-  }
+font-size:24px;
+line-height:40px;
+color:#ffffff;
+
+text-shadow:
+0 0 8px #00ff66;
+
+min-height:220px;
+
+}
+
+.cursor{
+
+display:inline-block;
+width:10px;
+background:#fff;
+
+animation:blink .8s infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+opacity:0;
+}
 
 }
 
 </style>
-
 </head>
 
 <body>
 
 <canvas id="matrix"></canvas>
 
-<h1>Assalomu alaykum 👋</h1>
+<div id="overlay">
 
-<button id="start" onclick="startMatrix()">
-ENTER THE MATRIX
-</button>
+<h1>Dilshoda🫶</h1>
 
+<div id="text"></div>
+
+</div>
 
 <script>
 
-/* =========================
-   MATRIX EFFEKT
-========================= */
+const canvas=document.getElementById("matrix");
 
-const canvas =
-document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
 
-const ctx =
-canvas.getContext("2d");
+canvas.width=window.innerWidth;
 
-canvas.width =
-window.innerWidth;
+canvas.height=window.innerHeight;
 
-canvas.height =
-window.innerHeight;
+const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカサタナハマヤラワ";
 
+const fontSize=16;
 
-const letters =
-"アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const columns=Math.floor(canvas.width/fontSize);
 
-const fontSize = 16;
+const drops=[];
 
-let columns =
-Math.floor(canvas.width / fontSize);
+for(let i=0;i<columns;i++){
 
-let drops =
-Array(columns).fill(1);
-
-
-function drawMatrix(){
-
-  ctx.fillStyle =
-  "rgba(0,0,0,0.07)";
-
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-
-  ctx.fillStyle =
-  "#00ff66";
-
-  ctx.font =
-  fontSize + "px monospace";
-
-
-  for(
-    let i = 0;
-    i < drops.length;
-    i++
-  ){
-
-    const text =
-    letters[
-      Math.floor(
-        Math.random() *
-        letters.length
-      )
-    ];
-
-
-    ctx.fillText(
-      text,
-      i * fontSize,
-      drops[i] * fontSize
-    );
-
-
-    if(
-      drops[i] * fontSize >
-      canvas.height
-      &&
-      Math.random() > 0.975
-    ){
-
-      drops[i] = 0;
-
-    }
-
-
-    drops[i]++;
-
-  }
+drops[i]=1;
 
 }
 
+function draw(){
 
-setInterval(
-  drawMatrix,
-  35
-);
+ctx.fillStyle="rgba(0,0,0,.06)";
 
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
-/* =========================
-   MATRIX HACKER OVOZI
-========================= */
+ctx.fillStyle="#00ff66";
 
-function startMatrix(){
+ctx.font=fontSize+"px monospace";
 
-  const audio =
-  new AudioContext();
+for(let i=0;i<drops.length;i++){
 
+const text=letters[Math.floor(Math.random()*letters.length)];
 
-  /* 1-Ovoz */
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-  const osc =
-  audio.createOscillator();
+if(drops[i]*fontSize>canvas.height&&Math.random()>0.975){
 
-  const gain =
-  audio.createGain();
-
-
-  osc.type =
-  "sawtooth";
-
-
-  osc.frequency.setValueAtTime(
-    55,
-    audio.currentTime
-  );
-
-
-  osc.frequency.exponentialRampToValueAtTime(
-    700,
-    audio.currentTime + 2
-  );
-
-
-  gain.gain.setValueAtTime(
-    0.001,
-    audio.currentTime
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.35,
-    audio.currentTime + 0.3
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    audio.currentTime + 3
-  );
-
-
-  osc.connect(gain);
-
-  gain.connect(
-    audio.destination
-  );
-
-
-  osc.start();
-
-  osc.stop(
-    audio.currentTime + 3
-  );
-
-
-  /* 2-CHUQUR DIGITAL OVOZ */
-
-  setTimeout(() => {
-
-    const osc2 =
-    audio.createOscillator();
-
-    const gain2 =
-    audio.createGain();
-
-
-    osc2.type =
-    "square";
-
-
-    osc2.frequency.setValueAtTime(
-      120,
-      audio.currentTime
-    );
-
-
-    osc2.frequency.exponentialRampToValueAtTime(
-      40,
-      audio.currentTime + 2
-    );
-
-
-    gain2.gain.setValueAtTime(
-      0.001,
-      audio.currentTime
-    );
-
-
-    gain2.gain.exponentialRampToValueAtTime(
-      0.18,
-      audio.currentTime + 0.2
-    );
-
-
-    gain2.gain.exponentialRampToValueAtTime(
-      0.001,
-      audio.currentTime + 2
-    );
-
-
-    osc2.connect(gain2);
-
-    gain2.connect(
-      audio.destination
-    );
-
-
-    osc2.start();
-
-    osc2.stop(
-      audio.currentTime + 2
-    );
-
-
-  }, 500);
-
-
-  /* TUGMANI YOPISH */
-
-  document
-  .getElementById("start")
-  .style.display =
-  "none";
+drops[i]=0;
 
 }
 
+drops[i]++;
 
-/* EKRAN O'LCHAMI */
+}
 
-window.addEventListener(
-  "resize",
-  () => {
+}
 
-    canvas.width =
-    window.innerWidth;
+setInterval(draw,35);
+  const message=`Meni kechir... ❤️
 
-    canvas.height =
-    window.innerHeight;
+Ba'zan inson o'zi ham sezmagan holda
+eng qadrli insonining ko'nglini
+og'ritib qo'yar ekan...
 
+Agar seni xafa qilgan bo'lsam,
+chin yurakdan uzr so'rayman.
 
-    columns =
-    Math.floor(
-      canvas.width / fontSize
-    );
+Sen oddiy inson emassan...
+Sen men uchun juda qadrli
+va alohida insonsan. 🫶
 
+Har bir tabassuming
+men uchun dunyolarga teng.
 
-    drops =
-    Array(columns).fill(1);
+Agar imkon bersang,
+hammasini yaxshilashga
+harakat qilaman.
 
-  }
-);
+Sening kechirishing
+men uchun juda muhim... ❤️`;
 
+const target=document.getElementById("text");
+
+let i=0;
+
+function type(){
+
+if(i<message.length){
+
+if(message.charAt(i)=="\n"){
+
+target.innerHTML+="<br>";
+
+}else{
+
+target.innerHTML+=message.charAt(i);
+
+}
+
+i++;
+
+setTimeout(type,45);
+
+}else{
+
+target.innerHTML+='<span class="cursor"></span>';
+
+}
+
+}
+
+setTimeout(type,1500);
+
+window.addEventListener("resize",()=>{
+
+canvas.width=window.innerWidth;
+
+canvas.height=window.innerHeight;
+
+});
 </script>
 
 </body>
