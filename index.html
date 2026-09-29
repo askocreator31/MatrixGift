@@ -3,156 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎬 Приглашение</title>
+<title>С днём рождения ❤️</title>
+
+<meta property="og:title" content="С днём рождения ❤️">
+<meta property="og:description" content="Для тебя есть маленький сюрприз 💌">
+<meta property="og:type" content="website">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
 body{
-background:linear-gradient(135deg,#111,#1d1d1d,#000);
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-overflow:hidden;
+    min-height:100vh;
+    overflow-x:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Arial,"Segoe UI",sans-serif;
+    background:radial-gradient(
+        circle at 50% 35%,
+        #ffe7f0 0%,
+        #ffc0d7 42%,
+        #f28eb3 100%
+    );
+    color:#641b3b;
 }
 
-.card{
-width:90%;
-max-width:420px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-padding:30px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 0 25px rgba(255,255,255,.15);
-}
-
-h1{font-size:30px;margin-bottom:15px;}
-p{line-height:1.6;margin:10px 0;}
-
-button{
-margin-top:20px;
-padding:15px 35px;
-font-size:18px;
-border:none;
-border-radius:50px;
-background:#ff3b6b;
-color:#fff;
-cursor:pointer;
-transition:.3s;
-}
-
-button:hover{
-transform:scale(1.05);
-}
-
-#ticket{
-display:none;
-animation:fade 1s;
-}
-
-.ticket{
-margin-top:20px;
-background:white;
-color:black;
-padding:20px;
-border-radius:15px;
-border:3px dashed #ff3b6b;
-}
-
-.ticket h2{
-color:#ff3b6b;
-}
-
-@keyframes fade{
-from{opacity:0;transform:scale(.8);}
-to{opacity:1;transform:scale(1);}
+.hearts{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
 }
 
 .heart{
-position:fixed;
-font-size:22px;
-animation:fall 5s linear forwards;
-pointer-events:none;
+    position:absolute;
+    top:-30px;
+    color:rgba(255,255,255,.72);
+    animation:fall linear infinite;
+    filter:drop-shadow(0 2px 4px rgba(120,20,60,.12));
 }
 
 @keyframes fall{
-0%{transform:translateY(-100px);}
-100%{transform:translateY(110vh);}
+    0%{
+        transform:translateY(-40px) rotate(0);
+        opacity:0;
+    }
+    12%{opacity:1}
+    100%{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
 }
-</style>
-</head>
 
-<body>
-
-<div class="card" id="invite">
-
-<h1>🎬 Небольшое приглашение</h1>
-
-<p>
-Привет! 😊<br><br>
-
-Если у тебя будет свободное время,
-я хотел бы пригласить тебя в кино.
-<br><br>
-
-Просто посмотреть хороший фильм,
-немного посмеяться и приятно провести
-время вместе. 🍿
-</p>
-
-<button onclick="accept()">
-🍿 Принять приглашение
-</button>
-
-</div>
-
-<div class="card" id="ticket">
-
-<h1>🎉 Спасибо!</h1>
-
-<div class="ticket">
-
-<h2>🎟 VIP MOVIE PASS</h2>
-
-<p><b>Guest:</b> Хилола❤️</p>
-
-<p><b>Companion:</b> Зохид 😊</p>
-
-<p><b>Seat:</b> A01 & A02</p>
-
-<p><b>Status:</b> Confirmed ✅</p>
-
-</div>
-
-<p style="margin-top:20px;">
-🎬 The Best Date — Coming Soon...
-<br><br>
-В главных ролях:
-<br>
-❤️ Ты и Я ❤️
-</p>
-
-</div>
-
-<script>
-function accept(){
-document.getElementById("invite").style.display="none";
-document.getElementById("ticket").style.display="block";
-
-for(let i=0;i<80;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML=Math.random()>0.5?"❤️":"💖";
-h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(3+Math.random()*3)+"s";
-document.body.appendChild(h);
-
-setTimeout(()=>h.remove(),6000);
+.wrap{
+    position:relative;
+    z-index:5;
+    width:min(92%,560px);
+    text-align:center;
 }
-}
-</script>
 
-</body>
-</html>
+.envelope-area{
+    transition:1s ease;
+}
+
+.envelope{
+    width:280px;
+    height:185px;
+    position:relative;
+    margin:0 auto 25px;
+    cursor:pointer;
+    filter:drop-shadow(0 18px 25px rgba(130,30,70,.25));
+}
+
+.env-body{
+    position:absolute;
+    inset:0;
+    border-radius:12px;
+    overflow:hidden;
+    background:linear-gradient(145deg,#fff8fb,#ffd0e1);
+}
+
+.env-body:before{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    border-style:solid;
+    border-width:92px 140px 0 0;
+    border-color:#f3aac4 transparent transparent;
+}
+
+.env-body:after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    right:0;
+    border-style:solid;
+    border-width:92px 0 0 140px;
+    border-color:#ee98b9 transparent transparent;
+}
+
+.letter{
+    position:absolute;
+    z-index:2;
+    width:218px;
+    height:145px;
+    left:31px;
+    top:19px;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+}
+
+.flap{
+    position:absolute;
+   
